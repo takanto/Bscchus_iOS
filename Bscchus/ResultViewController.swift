@@ -210,7 +210,7 @@ class ResultViewController: UIViewController, UIDocumentInteractionControllerDel
     // share in instagram
     @IBAction func shareClicked(_ sender: Any) {
         let imageData = imageView.image?.jpegData(compressionQuality: 0.75)
-        let writePath = (NSTemporaryDirectory() as NSString).appending("instagram.igo")
+        let writePath = (NSTemporaryDirectory() as NSString).appending("image.jpeg")
         
         do {
             try imageData?.write(to: URL(fileURLWithPath: writePath), options: [.atomic])
@@ -218,7 +218,6 @@ class ResultViewController: UIViewController, UIDocumentInteractionControllerDel
             
             self.docController = UIDocumentInteractionController(url: fileURL)
             self.docController.delegate = self
-            self.docController.uti = "com.instagram.exclusivegram"
             
             self.docController.presentOpenInMenu(from: self.view.frame, in: self.view, animated: true)
         }
