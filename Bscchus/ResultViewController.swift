@@ -8,13 +8,15 @@
 import UIKit
 import TensorFlowLite
 
-class ResultViewController: UIViewController {
+
+class ResultViewController: UIViewController, UIDocumentInteractionControllerDelegate {
     
     @IBOutlet weak var savedView: UIView!
     @IBOutlet weak var result: UILabel!
     @IBOutlet weak var gyroResult: UILabel!
     @IBOutlet weak var accelResult: UILabel!
     var selfie: UIImage?
+    var docController = UIDocumentInteractionController()
     
     var gyroListx: [Double]?
     var gyroListy: [Double]?
@@ -203,6 +205,26 @@ class ResultViewController: UIViewController {
     @IBAction func saveClicked(_ sender: Any) {
         UIImageWriteToSavedPhotosAlbum(imageView.image!, self, nil, nil)
 
+    }
+    
+    // share in instagram
+    @IBAction func instagramClicked(_ sender: Any) {
+        let imageData = imageView.image?.jpegData(compressionQuality: 0.75)
+        let writePath = (NSTemporaryDirectory() as NSString).appending("instagram.igo")
+        
+        do {
+            try imageData?.write(to: URL(fileURLWithPath: writePath), options: [.atomic])
+            let fileURL = URL(fileURLWithPath: writePath)
+            
+            self.docController = UIDocumentInteractionController(url: fileURL)
+            self.docController.delegate = self
+            self.docController.uti = "com.instagram.exclusivegram"
+            
+            self.docController.presentOpenInMenu(from: self.view.frame, in: self.view, animated: true)
+        }
+        catch _ {
+            print("error instagram")
+        }
     }
     
     func resizeImage (image: UIImage) -> UIImage? {

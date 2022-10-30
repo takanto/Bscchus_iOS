@@ -49,7 +49,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     
     @IBAction func uploadClicked(_ sender: Any) {
-        self.performSegue(withIdentifier: "showPhotoS", sender: sender)
+        //self.performSegue(withIdentifier: "showPhotoS", sender: sender)
     }
     
     
