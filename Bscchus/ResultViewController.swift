@@ -208,7 +208,7 @@ class ResultViewController: UIViewController, UIDocumentInteractionControllerDel
     }
     
     // share in instagram
-    @IBAction func instagramClicked(_ sender: Any) {
+    @IBAction func shareClicked(_ sender: Any) {
         let imageData = imageView.image?.jpegData(compressionQuality: 0.75)
         let writePath = (NSTemporaryDirectory() as NSString).appending("instagram.igo")
         
